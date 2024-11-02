@@ -1,0 +1,20 @@
+{% extends 'add.html' %}
+{% block content %}
+<form>
+    <div class="mb-3">
+        <label for="name" class="form-label">Product ID</label>
+        <input type="password" name ="p_id" class="form-control" placeholder="Enter Product ID" required>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Product Name</label>
+        <input type="password" name= "p_name" class="form-control" placeholder="Enter Product name" required>
+    </div>
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" name= "p_qty" class="form-control"  placeholder="Enter quantity" required>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary" style="background-color:mediumorchid;">Update</button>
+    </div>
+</form>
+{% endblock %}

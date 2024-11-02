@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddItem Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center min-vh-100">
+            <div class="col-md-4">
+                <div class="card mt-5 shadow-sm">
+                    <div class="card-body">
+                        {% block content %}
+                        <h3 class="card-title text-center mb-4">Add Items</h3>
+                        <form>
+                            
+                            <div class="d-grid" style="padding-left: 75px;padding-bottom: 30px;">
+                                <a href="{{ url_for('addnew') }}" class="btn btn-primary" style="background-color:rgb(204, 87, 250); width: 200px;height:50px;">Add a new product</a>
+                            </div>
+                            
+                            <div class="d-grid" style="padding-left: 75px;padding-bottom: 30px;">
+                                <a href="{{ url_for('update_exist') }}" class="btn btn-primary" style="background-color:rgb(204, 87, 250); width: 200px;height:60px;">Update an existing product</a>
+                            </div>                       
+                        </form>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+    
