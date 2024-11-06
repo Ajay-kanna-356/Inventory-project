@@ -1,6 +1,6 @@
 {% extends 'add.html' %}
 {% block content %}
-<form></form>
+<form action="{{url_for('appendnew')}}" method="POST">
     <div class="mb-3">
         <label for="name" class="form-label">Product ID</label>
         <input type="password" name = "pr_id" class="form-control" placeholder="Enter Product id" required>

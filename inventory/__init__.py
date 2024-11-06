@@ -38,7 +38,7 @@ class User(db.Model,UserMixin):
         return bcrypt.check_password_hash(self.password, password)
     def get_id(self):
         return self.email
-"""
+
 class add_table(db.Model):
     product_id=db.Column(db.String(10), primary_key=True)
     name=db.Column(db.String(20), nullable=False)
@@ -51,16 +51,17 @@ class add_table(db.Model):
         self.qty = qty
         self.price = price
 
+
 class sold_table(db.Model):
-    product_id=db.Column(db.String(10),db.ForeignKey(add_table.product_id) )
-    name=db.Column(db.String(20), nullable=False)
-    qty=db.Column(db.Integer(), nullable=False)
+    product_id=db.Column(db.String(10), db.ForeignKey('add_table.product_id'),primary_key=True )
+    name=db.Column(db.String(20),nullable=False)
+    qty=db.Column(db.Integer(),nullable=False)
     
     def __init__(self,product_id,name,qty):
         self.product_id = product_id
         self.name = name
         self.qty = qty
-"""
+
 if __name__ == "__main__":
     app.run(debug=True)
 

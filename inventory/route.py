@@ -1,4 +1,4 @@
-from inventory import app, request, render_template, redirect, flash, db, User,login_required,login_user,logout_user
+from inventory import app, request, render_template, redirect, flash, db, User,login_required,login_user,logout_user,add_table,sold_table
 
 # Process registration route
 @app.route("/process_registration", methods=["POST"])
@@ -25,6 +25,28 @@ def Process_reg():
     db.session.commit()
 
     flash('Registration successful!', 'success')
+    return redirect("/home")
+
+@app.route("/addnew",methods = ['POST'])
+def appendnew():
+    id = request.form.get("pr_id")
+    name = request.form.get("pr_name")
+    qty = request.form.get("pr_qty")
+    price= request.form.get("pr_price")
+    new_item = add_table(id,name,qty,price)
+    db.session.add(new_item)
+    db.session.commit()
+    return redirect("/home")
+
+
+@app.route("/soldout",methods = ['POST'])
+def updatesold():
+    id = request.form.get("p_id")
+    qty = request.form.get("p_qty")
+    name = request.form.get("p_name")
+    new_item = sold_table(id,name,qty)
+    db.session.add(new_item)
+    db.session.commit()
     return redirect("/home")
 
 
