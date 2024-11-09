@@ -11,7 +11,7 @@ def Process_reg():
     if password != confirm:
         flash('Passwords do not match', 'danger')
         return redirect("/reg")
-    
+     
     # Check if the user already exists
     existing_user = User.query.filter_by(email=mail).first()
     if existing_user:
@@ -37,7 +37,13 @@ def appendnew():
     db.session.add(new_item)
     db.session.commit()
     return redirect("/home")
-
+@app.route("/updateprice",methods =['POST'])
+def updateprice():
+    id = request.form.get("p_id")
+    pr = request.form.get("n_price") 
+    result = add_table.query.filter(add_table.product_id == id).update({add_table.price: pr})
+    db.session.commit()
+    return redirect("/home")
 
 @app.route("/soldout",methods = ['POST'])
 def updatesold():

@@ -40,7 +40,7 @@ class User(db.Model,UserMixin):
         return self.email
 
 class add_table(db.Model):
-    product_id=db.Column(db.String(10), primary_key=True)
+    product_id=db.Column(db.Integer(), primary_key=True)
     name=db.Column(db.String(20), nullable=False)
     qty=db.Column(db.Integer(), nullable=False)
     price=db.Column(db.Integer(), nullable=False)
@@ -53,9 +53,10 @@ class add_table(db.Model):
 
 
 class sold_table(db.Model):
-    product_id=db.Column(db.String(10), db.ForeignKey('add_table.product_id'),primary_key=True )
+    product_id=db.Column(db.Integer(), db.ForeignKey('add_table.product_id') )
     name=db.Column(db.String(20),nullable=False)
     qty=db.Column(db.Integer(),nullable=False)
+    seller_id=db.Column(db.Integer(),primary_key=True,autoincrement=True)
     
     def __init__(self,product_id,name,qty):
         self.product_id = product_id
