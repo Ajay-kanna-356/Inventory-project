@@ -9,85 +9,88 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body style="background-color: aqua;">
-    <div class="container-fluid" style="background-color: darkblue;padding: 10px 10px;">
+    <div class="container-fluid" style="background-color: darkblue; padding: 10px 10px;">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <svg class="bi me-2" width="60" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-  
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-4 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 text-info" style="font-size: 20px;" >Home</a></li>
-          </ul>
-  
-          <div class="text-end">
-            <button type="button" onclick="window.location.href='{{ url_for('firstpage') }}'" class="btn btn-outline-light me-2">Log out</button>
-          </div>
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="60" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-4 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 text-info" style="font-size: 20px;">Home</a></li>
+            </ul>
+
+            <div class="text-end">
+                <button type="button" onclick="window.location.href='{{ url_for('firstpage') }}'" class="btn btn-outline-light me-2">Log out</button>
+            </div>
         </div>
-      </div>
-  <div class="container d-flex justify-content-center align-items-center min-vh-100">
-      <div class="row">
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-              <div class="card" style="width: 18rem;">
-                  <img src="{{url_for('static',filename='add-product.png')}}"  class="card-img-top" style="height: 150px;">
-                  <div class="card-body">
-                      <h5 class="card-title">Add Item</h5>
-                      <p class="card-text">Add new item to inventory</p>
-                      <a href="{{url_for('add_item')}}" class="btn btn-primary">Add</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-              <div class="card" style="width: 18rem;">
-                  <img src="{{url_for('static',filename='sold_out.jpg')}}" class="card-img-top" style="height: 150px;">
-                  <div class="card-body">
-                      <h5 class="card-title">Sold Item</h5>
-                      <p class="card-text">Remove item from inventory</p>
-                      <a href="{{url_for('sold_item')}}" class="btn btn-primary">Sold</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-              <div class="card" style="width: 18rem;">
-                  <img src="{{url_for('static',filename='update.png')}}" class="card-img-top" style="height: 150px;">
-                  <div class="card-body">
-                      <h5 class="card-title">Update Price</h5>
-                      <p class="card-text">Update price from inventory</p>
-                      <a href="{{url_for('update_item')}}" class="btn btn-primary">Update</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-              <div class="card" style="width: 18rem;">
-                  <img src="{{url_for('static',filename='history.png')}}" class="card-img-top" style="height: 150px;">
-                  <div class="card-body">
-                      <h5 class="card-title">History</h5>
-                      <p class="card-text">History of the inventory</p>
-                      <a href="#" class="btn btn-primary">View</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-            <div class="card" style="width: 18rem;">
-                <img src="{{url_for('static',filename='stats.png')}}" class="card-img-top" style="height: 150px;">
-                <div class="card-body">
-                    <h5 class="card-title">Stats</h5>
-                    <p class="card-text">check stats </p>
-                    <a href='#' class="btn btn-primary">Check</a>
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <!-- Row with 3 Cards -->
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='add-product.png')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Item</h5>
+                        <p class="card-text">Add new item to inventory</p>
+                        <a href="{{url_for('add_item')}}" class="btn btn-primary">Add</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 d-flex justify-content-center mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='sold_out.jpg')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Sold Item</h5>
+                        <p class="card-text">Remove item from inventory</p>
+                        <a href="{{url_for('sold_item')}}" class="btn btn-primary">Sold</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 d-flex justify-content-center mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='update.png')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Update Price</h5>
+                        <p class="card-text">Update price from inventory</p>
+                        <a href="{{url_for('update_item')}}" class="btn btn-primary">Update</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add a w-100 div to force a new row -->
+            <div class="w-100"></div>
+
+            <!-- Row with 2 Centered Cards -->
+            <div class="col-md-6 d-flex justify-content-center mb-6" style="padding-left: 80px;">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='history.png')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">History</h5>
+                        <p class="card-text">History of the inventory</p>
+                        <a href="{{ url_for('history')}}" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-center mb-6" style="padding-right: 80px;">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='available.png')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Available Items</h5>
+                        <p class="card-text">Show current available items</p>
+                        <a href="{{ url_for('get_available_items')}}" class="btn btn-primary">Check</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 d-flex justify-content-center mb-4">
-            <div class="card" style="width: 18rem;">
-                <img src="{{url_for('static',filename='available.png')}}" class="card-img-top" style="height: 150px;">
-                <div class="card-body">
-                    <h5 class="card-title">Available Items</h5>
-                    <p class="card-text">Show current available items</p>
-                    <a href='#' class="btn btn-primary">Check</a>
-                </div>
-            </div>
-        </div>
-      </div>
-  </div>
+    </div>
 </body>
+
 
   

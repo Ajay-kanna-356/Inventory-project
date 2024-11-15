@@ -1,4 +1,6 @@
 from inventory import app, request, render_template, redirect, flash, db, User,login_required,login_user,logout_user,add_table,sold_table
+from sqlalchemy import event,func
+from flask import flash
 
 # Process registration route
 @app.route("/process_registration", methods=["POST"])
@@ -35,6 +37,22 @@ def appendnew():
     price= request.form.get("pr_price")
     new_item = add_table(id,name,qty,price)
     db.session.add(new_item)
+    try:
+        if int(price) < 0:
+            db.session.rollback()
+            return render_template('error.html')
+        db.session.commit()
+        flash("Item added successfully!", "success")
+    except ValueError as e:
+        db.session.rollback()
+        return render_template('error.html')
+    return redirect("/home")
+@app.route("/updateproduct",methods=['POST'])
+def updateproduct():
+    id = request.form.get("p_id")
+    qty = int(request.form.get("p_qty"))
+    row = add_table.query.filter(add_table.product_id == id).first()
+    row.qty += qty
     db.session.commit()
     return redirect("/home")
 @app.route("/updateprice",methods =['POST'])
@@ -45,17 +63,48 @@ def updateprice():
     db.session.commit()
     return redirect("/home")
 
+@event.listens_for(add_table, 'before_insert')
+def prevent_duplicate_product_id(mapper, connection, target):
+    print("working")
+    # Use target.product_id instead of id
+    exists = db.session.query(add_table).filter_by(product_id=target.product_id).first()
+    if exists:
+        if exists.price <=0:
+            raise ValueError("Duplicate product_id detected. Insertion aborted.")
+
 @app.route("/soldout",methods = ['POST'])
 def updatesold():
     id = request.form.get("p_id")
     qty = request.form.get("p_qty")
     name = request.form.get("p_name")
-    new_item = sold_table(id,name,qty)
-    db.session.add(new_item)
-    db.session.commit()
-    return redirect("/home")
+    exist = add_table.query.filter_by(product_id=id).first()
+    if exist:
+        new_item = sold_table(id,name,qty)
+        db.session.add(new_item)
+        db.session.commit()
+        return redirect("/home")
+    else:
+        return render_template("productnotfound.html")
+@app.route("/avail")
+def get_available_items():
+    # Query to calculate available stock for each product
+       # Query to calculate available stock for each product using a subquery
+    subquery = db.session.query(
+        add_table.product_id,
+        add_table.name,
+        (add_table.qty - func.coalesce(func.sum(sold_table.qty), 0)).label('available_qty')
+    ).outerjoin(sold_table, add_table.product_id == sold_table.product_id) \
+     .group_by(add_table.product_id, add_table.name) \
+     .subquery()
 
+    # Filter for products with available_qty > 0
+    results = db.session.query(subquery.c.product_id, subquery.c.name, subquery.c.available_qty) \
+        .filter(subquery.c.available_qty > 0) \
+        .all()
 
+    # Return the result as a list of dictionaries
+    available_items = [{'product_id': result.product_id, 'name': result.name, 'available_qty': result.available_qty} for result in results]
+    return render_template("available_items.html",items=available_items)
 # Process login route
 @app.route("/login", methods=['POST'])
 def Process_login():
@@ -95,6 +144,9 @@ def add_item():
 @app.route("/sold")
 def sold_item():
     return render_template("sold.html")
+@app.route ("/availableitems")
+def availableitems():
+    return render_template("available_items.html")
 @app.route("/update")
 def update_item():
     return render_template("update.html")
@@ -104,7 +156,13 @@ def addnew():
 @app.route("/updateexist")
 def update_exist():
     return render_template("updateexist.html")
-
+@app.route("/history")
+def history():
+    sold_items = sold_table.query.all()
+    return render_template("history.html",history = sold_items)
+@app.route("/stats")
+def stats():
+    return render_template("stats.html")
 @app.route("/logout")
 def logout_page():
     logout_user()

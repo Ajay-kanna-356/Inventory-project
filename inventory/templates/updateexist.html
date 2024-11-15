@@ -1,17 +1,13 @@
 {% extends 'add.html' %}
 {% block content %}
-<form></form>
+<form action="{{ url_for('updateproduct')}}" method="POST">
     <div class="mb-3">
-        <label for="name" class="form-label">Product Name</label>
-        <input type="password" class="form-control" placeholder="Enter Product name" required>
+        <label for="name" class="form-label">Product Id</label>
+        <input type="number" name="p_id" class="form-control" placeholder="Enter Product Id" required>
     </div>
     <div class="mb-3">
         <label for="quantity" class="form-label">Quantity</label>
-        <input type="number" class="form-control"  placeholder="Enter quantity" required>
-    </div>
-    <div class="mb-3"></div>
-        <label for="price" class="form-label">Price</label>
-        <input type="password" class="form-control" placeholder="Enter Product name" required>
+        <input type="number" name="p_qty" class="form-control"  placeholder="Enter quantity" required>
     </div>
     <div class="d-grid">
         <button type="submit" class="btn btn-primary" style="background-color:mediumorchid;">Update</button>
