@@ -167,3 +167,38 @@ def stats():
 def logout_page():
     logout_user()
     return render_template("login.html")
+@app.route("/most_sold")
+def most_sold_page():
+    result = db.session.query(
+        sold_table.product_id,
+        sold_table.name,
+        func.sum(sold_table.qty).label('total_quantity'),
+        func.sum(sold_table.qty * add_table.price).label('total_price')  # Calculate total price
+    ).join(
+        add_table, sold_table.product_id == add_table.product_id
+    ).group_by(
+        sold_table.product_id, sold_table.name
+    ).order_by(
+        func.sum(sold_table.qty).desc()  # Sort by total_quantity in descending order
+    ).all()
+    
+    # Pass results to the template
+    return render_template("most_sold.html", result=result)
+
+@app.route("/most_profitable")
+def most_profit_page():
+    result = db.session.query(
+        sold_table.product_id,
+        sold_table.name,
+        func.sum(sold_table.qty).label('total_quantity'),
+        func.sum(sold_table.qty * add_table.price).label('total_price')  # Calculate total price
+    ).join(
+        add_table, sold_table.product_id == add_table.product_id
+    ).group_by(
+        sold_table.product_id, sold_table.name
+    ).order_by(
+        func.sum(sold_table.qty*add_table.price).desc()  # Sort by total_profit in descending order
+    ).all()
+    
+    # Pass results to the template
+    return render_template("most_profitable.html",result=result)

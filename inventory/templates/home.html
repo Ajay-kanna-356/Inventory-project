@@ -63,11 +63,8 @@
                 </div>
             </div>
 
-            <!-- Add a w-100 div to force a new row -->
-            <div class="w-100"></div>
 
-            <!-- Row with 2 Centered Cards -->
-            <div class="col-md-6 d-flex justify-content-center mb-6" style="padding-left: 80px;">
+            <div class="col-md-4 d-flex justify-content-center mb-4">
                 <div class="card" style="width: 18rem;">
                     <img src="{{url_for('static', filename='history.png')}}" class="card-img-top" style="height: 150px;">
                     <div class="card-body">
@@ -78,7 +75,18 @@
                 </div>
             </div>
 
-            <div class="col-md-6 d-flex justify-content-center mb-6" style="padding-right: 80px;">
+            <div class="col-md-4 d-flex justify-content-center mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static', filename='stats.png')}}" class="card-img-top" style="height: 150px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Stats</h5>
+                        <p class="card-text">get statistics about sold products</p>
+                        <a href="{{ url_for('stats')}}" class="btn btn-primary">Check</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 d-flex justify-content-center mb-4" >
                 <div class="card" style="width: 18rem;">
                     <img src="{{url_for('static', filename='available.png')}}" class="card-img-top" style="height: 150px;">
                     <div class="card-body">
